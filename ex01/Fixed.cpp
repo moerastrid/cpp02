@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/19 12:26:54 by ageels        #+#    #+#                 */
-/*   Updated: 2023/04/19 14:52:16 by ageels        ########   odam.nl         */
+/*   Updated: 2023/04/19 18:26:28 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ Fixed::Fixed(void) : _rawBits(0)
 
 Fixed::Fixed(int const value)
 {
-	this->_rawBits = value;
+	this->_rawBits = value << _fractional_point;
 	std::cout << "Parametic Constructor called : int" << std::endl;
 }
 
-Fixed::Fixed(float const value) : _rawBits(value)
+Fixed::Fixed(float const value)
 {
+	this->_rawBits = roundf(value * pow(2, _fractional_point));
 	std::cout << "Parametic Constructor called : float" << std::endl;
 }
 
@@ -37,9 +38,7 @@ Fixed::Fixed(Fixed const & src) : _rawBits(0)
 Fixed	&Fixed::operator=(Fixed const &rhs)
 {
 	std::cout << "Assignation operator called" << std::endl;
-
 	this->setRawBits(rhs.getRawBits());
-	
 	return (*this);
 }
 
@@ -50,29 +49,32 @@ Fixed::~Fixed(void)
 
 int Fixed::getRawBits(void) const
 {
-	std::cout << "getRawBits member function called" << std::endl;
+	std::cout << " (getRawBits member function called) ";
 	return (this->_rawBits);
 }
 
 void Fixed::setRawBits(int const raw)
 {
-	std::cout << "setRawBits member function called" << std::endl;
+	std::cout << " (setRawBits member function called) ";
 	this->_rawBits = raw;
 }
 
 float	Fixed::toFloat(void) const
 {
-	return (this->_rawBits);
+	float	retval;
+
+	retval = getRawBits() / pow(2, _fractional_point);
+	return (retval);
 }
 
 int		Fixed::toInt(void) const
 {
-	int	retval = getRawBits();
+	int	retval = getRawBits() >> _fractional_point;
 	return (retval);
 }
 
 std::ostream	&operator<<(std::ostream &o, Fixed const &i)
 {
-	o << i.getRawBits();
+	o << i.toFloat();
 	return (o);
 }

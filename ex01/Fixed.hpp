@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/19 12:17:05 by ageels        #+#    #+#                 */
-/*   Updated: 2023/04/19 14:40:42 by ageels        ########   odam.nl         */
+/*   Updated: 2023/04/19 18:09:20 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FIXED_H
 
 # include <iostream>
+# include <cmath>
 
 class	Fixed {
 	private :
