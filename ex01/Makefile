@@ -6,11 +6,11 @@
 #    By: ageels <ageels@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/04/19 12:13:09 by ageels        #+#    #+#                  #
-#    Updated: 2023/04/19 12:17:51 by ageels        ########   odam.nl          #
+#    Updated: 2023/04/19 14:54:50 by ageels        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =  My_First_Class_in_Orthodox_Canonical_Form
+NAME =  Towards_a_more_useful_fixed-point_number_class
 
 FLAGS = -I. -Wall -Wextra -Werror -std=c++98
 
