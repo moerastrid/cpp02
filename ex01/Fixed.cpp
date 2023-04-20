@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/19 12:26:54 by ageels        #+#    #+#                 */
-/*   Updated: 2023/04/19 18:26:28 by ageels        ########   odam.nl         */
+/*   Updated: 2023/04/20 14:17:36 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Fixed::Fixed(int const value)
 
 Fixed::Fixed(float const value)
 {
-	this->_rawBits = roundf(value * pow(2, _fractional_point));
+	this->_rawBits = roundf(value * (1u << _fractional_point));
 	std::cout << "Parametic Constructor called : float" << std::endl;
 }
 
@@ -59,12 +59,9 @@ void Fixed::setRawBits(int const raw)
 	this->_rawBits = raw;
 }
 
-float	Fixed::toFloat(void) const
+float	Fixed::toFloat(void) const 
 {
-	float	retval;
-
-	retval = getRawBits() / pow(2, _fractional_point);
-	return (retval);
+	return (getRawBits() / (float)(1u << this->_fractional_point));
 }
 
 int		Fixed::toInt(void) const
