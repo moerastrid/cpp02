@@ -6,129 +6,134 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/19 12:26:54 by ageels        #+#    #+#                 */
-/*   Updated: 2023/04/19 20:58:29 by ageels        ########   odam.nl         */
+/*   Updated: 2023/04/20 12:45:31 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-Fixed::Fixed(void) : _rawBits(0)
-{	
-	//std::cout << "Default Constructor called" << std::endl;
+//Default Constructor
+Fixed::Fixed(void) : _rawBits(0) {	
 }
 
-Fixed::Fixed(int const value)
-{
+//Parametic Constructor : int
+Fixed::Fixed(int const value) {
 	this->_rawBits = value << _fractional_point;
-	//std::cout << "Parametic Constructor called : int" << std::endl;
 }
 
-Fixed::Fixed(float const value)
-{
+//Parametic Constructor : float
+Fixed::Fixed(float const value) {
 	this->_rawBits = roundf(value * pow(2, _fractional_point));
-	//std::cout << "Parametic Constructor called : float" << std::endl;
 }
 
-Fixed::Fixed(Fixed const & src) : _rawBits(0)
-{
-	//std::cout << "Copy Constructor called" << std::endl;
+//Copy Constructor
+Fixed::Fixed(Fixed const & src) : _rawBits(0) {
 	*this = src;
 }
 
-Fixed	&Fixed::operator=(Fixed const &rhs)
-{
-	//std::cout << "Assignation operator called" << std::endl;
+//Assignation operator
+Fixed	&Fixed::operator=(Fixed const &rhs) {
 	this->setRawBits(rhs.getRawBits());
 	return (*this);
 }
 
-Fixed::~Fixed(void) 
-{
-	//std::cout << "Destructor called" << std::endl;
+//Destructor
+Fixed::~Fixed(void) {
 }
 
-int Fixed::getRawBits(void) const
-{
-	//std::cout << " (getRawBits member function called) ";
+// non-static member functions:
+int Fixed::getRawBits(void) const {
 	return (this->_rawBits);
 }
 
-void Fixed::setRawBits(int const raw)
-{
-	//std::cout << " (setRawBits member function called) ";
+void Fixed::setRawBits(int const raw) {
 	this->_rawBits = raw;
 }
 
-float	Fixed::toFloat(void) const
-{
+float	Fixed::toFloat(void) const {
 	float	retval;
 
 	retval = getRawBits() / pow(2, _fractional_point);
 	return (retval);
 }
 
-int		Fixed::toInt(void) const
-{
+int		Fixed::toInt(void) const {
 	int	retval = getRawBits() >> _fractional_point;
 	return (retval);
 }
 
-std::ostream	&operator<<(std::ostream &o, Fixed const &i)
-{
-	o << i.toFloat();
-	return (o);
-}
-
-bool	Fixed::operator>(Fixed const &rhs)
-{
+// comparison operators
+bool	Fixed::operator>(Fixed const &rhs) {
 	return (this->getRawBits() > rhs.getRawBits());
 }
 
-bool	Fixed::operator<(Fixed const &rhs)
-{
+bool	Fixed::operator<(Fixed const &rhs) {
 	return (this->getRawBits() < rhs.getRawBits());
 }
 
-bool	Fixed::operator>=(Fixed const &rhs)
-{
+bool	Fixed::operator>=(Fixed const &rhs) {
 	return (this->getRawBits() >= rhs.getRawBits());
 }
 
-bool	Fixed::operator<=(Fixed const &rhs)
-{
+bool	Fixed::operator<=(Fixed const &rhs) {
 	return (this->getRawBits() <= rhs.getRawBits());
 }
 
-bool	Fixed::operator==(Fixed const &rhs)
-{
+bool	Fixed::operator==(Fixed const &rhs) {
 	return (this->getRawBits() == rhs.getRawBits());
 }
 
-bool	Fixed::operator!=(Fixed const &rhs)
-{
+bool	Fixed::operator!=(Fixed const &rhs) {
 	return (this->getRawBits() != rhs.getRawBits());
 }
 
-Fixed	Fixed::operator+(Fixed const &rhs) const
-{
+// aritmetic operators
+Fixed	Fixed::operator+(Fixed const &rhs) const {
 	float	total = this->toFloat() + rhs.toFloat();
 	return (Fixed(total));
 }
 
-Fixed	Fixed::operator-(Fixed const &rhs) const
-{
+Fixed	Fixed::operator-(Fixed const &rhs) const {
 	float	total = this->toFloat() - rhs.toFloat();
 	return (Fixed(total));
 }
 
-Fixed	Fixed::operator*(Fixed const &rhs) const
-{
+Fixed	Fixed::operator*(Fixed const &rhs) const {
 	float	total = this->toFloat() * rhs.toFloat();
 	return (Fixed(total));
 }
 
-Fixed	Fixed::operator/(Fixed const &rhs) const
-{
+Fixed	Fixed::operator/(Fixed const &rhs) const {
 	float	rawtotal = float(this->_rawBits) / float(rhs._rawBits);
 	return (Fixed(rawtotal));
+}
+
+Fixed	&Fixed::operator++() {
+	this->_rawBits++;
+	return (*this);
+}
+
+Fixed	Fixed::operator++(int) {
+	Fixed temp(*this);
+	++(*this);
+	return (temp);
+}
+
+Fixed	&Fixed::operator--() {
+	this->_rawBits--;
+	return (*this);
+}
+
+Fixed	Fixed::operator--(int) {
+	Fixed temp(*this);
+	--(*this);
+	return (temp);
+}
+
+// An overload of the insertion («) operator that inserts a floating-point representation
+// of the fixed-point number into the output stream object passed as parameter.
+std::ostream	&operator<<(std::ostream &o, Fixed const &i)
+{
+	o << i.toFloat();
+	return (o);
 }
