@@ -75,18 +75,25 @@ bool	Fixed::operator!=(Fixed const &rhs) {
 
 // aritmetic operators
 Fixed	Fixed::operator+(Fixed const &rhs) const {
-	float	total = this->toFloat() + rhs.toFloat();
-	return (Fixed(total));
+	Fixed	answer;
+
+	answer.setRawBits(this->_rawBits + rhs.getRawBits());
+	return (answer);
 }
 
 Fixed	Fixed::operator-(Fixed const &rhs) const {
-	float	total = this->toFloat() - rhs.toFloat();
-	return (Fixed(total));
+	Fixed	answer;
+
+	answer.setRawBits(this->_rawBits - rhs.getRawBits());
+	return (answer);
 }
 
 Fixed	Fixed::operator*(Fixed const &rhs) const {
-	float	total = this->toFloat() * rhs.toFloat();
-	return (Fixed(total));
+	Fixed	answer;
+
+	float	total = (this->_rawBits * rhs.getRawBits()) >> this->_fractional_point;
+	answer.setRawBits(total);
+	return (answer);
 }
 
 Fixed	Fixed::operator/(Fixed const &rhs) const {
@@ -116,8 +123,32 @@ Fixed	Fixed::operator--(int) {
 	return (temp);
 }
 
-// An overload of the insertion («) operator that inserts a floating-point representation
-// of the fixed-point number into the output stream object passed as parameter.
+// static member functions
+Fixed const	&Fixed::min(Fixed const &fa, Fixed const &fb) {
+	if (fa.getRawBits() < fb.getRawBits())
+		return (fa);
+	return (fb);
+}
+
+Fixed	&Fixed::min(Fixed &fa, Fixed &fb) {
+	if (fa < fb)
+		return (fa);
+	return (fb);
+}
+
+Fixed const	&Fixed::max(Fixed const &fa, Fixed const &fb) {
+	if (fa.getRawBits() > fb.getRawBits())
+		return (fa);
+	return (fb);
+}
+
+Fixed	&Fixed::max(Fixed &fa, Fixed &fb) {
+	if (fa > fb)
+		return (fa);
+	return (fb);
+}
+
+// overload insertion («) operator
 std::ostream	&operator<<(std::ostream &o, Fixed const &i)
 {
 	o << i.toFloat();

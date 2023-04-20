@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/19 12:17:05 by ageels        #+#    #+#                 */
-/*   Updated: 2023/04/20 12:48:46 by ageels        ########   odam.nl         */
+/*   Updated: 2023/04/20 14:50:03 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,10 @@ class	Fixed {
 		Fixed	operator--(int);	//Postfix decrement operator
 
 		// static member functions
-		static Fixed const	&min(Fixed const &fa, Fixed const &fb) {
-			if (fa.getRawBits() < fb.getRawBits())
-				return (fa);
-			return (fb);
-		}
-		
-		static Fixed	&min(Fixed &fa, Fixed &fb) {
-			if (fa < fb)
-				return (fa);
-			return (fb);
-		}
-		
-		static Fixed const	&max(Fixed const &fa, Fixed const &fb) {
-			if (fa.getRawBits() > fb.getRawBits())
-				return (fa);
-			return (fb);
-		}
-		
-		static Fixed	&max(Fixed &fa, Fixed &fb) {
-			if (fa > fb)
-				return (fa);
-			return (fb);
-		}
-		
+		static Fixed const	&min(Fixed const &fa, Fixed const &fb);
+		static Fixed 		&min(Fixed &fa, Fixed &fb);
+		static Fixed const	&max(Fixed const &fa, Fixed const &fb);
+		static Fixed		&max(Fixed &fa, Fixed &fb);		
 };
 
 std::ostream	&operator<<(std::ostream &o, Fixed const &i);	// not canonical but conveinient
