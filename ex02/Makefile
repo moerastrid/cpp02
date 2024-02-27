@@ -6,13 +6,13 @@
 #    By: ageels <ageels@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/04/19 12:13:09 by ageels        #+#    #+#                  #
-#    Updated: 2023/04/19 20:13:23 by ageels        ########   odam.nl          #
+#    Updated: 2024/02/27 13:53:10 by ageels        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =  Now_we_are_talking
 
-FLAGS = -I. -Wall -Wextra -Werror -std=c++98
+FLAGS = -I. -Wall -Wextra -Werror -std=c++11
 
 SRC = main.cpp\
 	Fixed.cpp\

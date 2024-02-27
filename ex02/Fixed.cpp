@@ -88,17 +88,20 @@ Fixed	Fixed::operator-(Fixed const &rhs) const {
 	return (answer);
 }
 
+
 Fixed	Fixed::operator*(Fixed const &rhs) const {
 	Fixed	answer;
 
-	float	total = (this->_rawBits * rhs.getRawBits()) >> this->_fractional_point;
-	answer.setRawBits(total);
+	// shift to long for bit-shifting, otherwise it overflows really fast :)
+	answer.setRawBits(((long)this->_rawBits * rhs.getRawBits()) >> this->_fractional_point);
 	return (answer);
 }
 
 Fixed	Fixed::operator/(Fixed const &rhs) const {
-	float	rawtotal = float(this->_rawBits) / float(rhs._rawBits);
-	return (Fixed(rawtotal));
+	Fixed	answer;
+	
+	answer.setRawBits(((long)this->_rawBits << this->_fractional_point) / rhs._rawBits);
+	return (answer);
 }
 
 Fixed	&Fixed::operator++() {

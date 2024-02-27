@@ -6,7 +6,7 @@
 /*   By: ageels <ageels@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/19 12:16:51 by ageels        #+#    #+#                 */
-/*   Updated: 2023/04/20 14:56:15 by ageels        ########   odam.nl         */
+/*   Updated: 2024/02/27 13:55:42 by ageels        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	minmax_tests(Fixed a, Fixed const b, Fixed e, Fixed const f)
 
 int main( void ) {
 	Fixed a;
-	Fixed const b( 10 );
-	Fixed const c( 42.42f );
+	Fixed const b( 555 );
+	Fixed const c( 5555 );
 	Fixed const d( b );
 	Fixed e;
 	Fixed const f( Fixed( 5.05f ) * Fixed( 2 ) );
